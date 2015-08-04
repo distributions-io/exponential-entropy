@@ -2,16 +2,16 @@ Entropy
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> [exponential](https://en.wikipedia.org/wiki/exponential_distribution) distribution [entropy](https://en.wikipedia.org/wiki/entropy).
+> [Exponential](https://en.wikipedia.org/wiki/exponential_distribution) distribution [entropy](https://en.wikipedia.org/wiki/entropy).
 
-The [entropy](https://en.wikipedia.org/wiki/entropy) for a [exponential](https://en.wikipedia.org/wiki/exponential_distribution) random variable is
+The [entropy](https://en.wikipedia.org/wiki/entropy) for an [exponential](https://en.wikipedia.org/wiki/exponential_distribution) random variable is
 
-<div class="equation" align="center" data-raw-text="\operatorname{}\left[ X \right] = " data-equation="eq:entropy">
-	<img src="" alt="entropy for a exponential distribution.">
+<div class="equation" align="center" data-raw-text="H(X) = \mathbb{E}[I(X))] = 1 - \ln(\lambda)" data-equation="eq:entropy">
+	<img src="https://cdn.rawgit.com/distributions-io/exponential-entropy/bb7b3e60008bb4f8c77e729f0f79f65199fe81ab/docs/img/eqn.svg" alt="Entropy for exponential distribution.">
 	<br>
 </div>
 
-where `0 &lt;=lambda&lt;= 1` is the rate parameter.
+where `lambda > 0` is the rate parameter.
 
 
 ## Installation
@@ -31,7 +31,7 @@ var entropy = require( 'distributions-exponential-entropy' );
 
 #### entropy( lambda[, opts] )
 
-Computes the [entropy](https://en.wikipedia.org/wiki/entropy) for a [exponential](https://en.wikipedia.org/wiki/exponential_distribution) distribution with parameter `lambda`. `lambda` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
+Computes the [entropy](https://en.wikipedia.org/wiki/entropy) for an [exponential](https://en.wikipedia.org/wiki/exponential_distribution) distribution with parameter `lambda`. `lambda` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
 var matrix = require( 'dstructs-matrix' ),
@@ -46,11 +46,11 @@ out = entropy( 0.5 );
 lambda = [ 0.5, 1, 2, 4 ];
 out = entropy( lambda );
 
-// returns [ ~1.693, ~1.000, ~0.307, ~-0.386 ]
+// returns [ ~1.693, 1.000, ~0.307, ~-0.386 ]
 
-lambda = new Float32ArrayArray( lambda );
+lambda = new Float32Array( lambda );
 out = entropy( lambda );
-// returns Float64Array( [~1.693,~1.000,~0.307,~-0.386] )
+// returns Float64Array( [~1.693,1.000,~0.307,~-0.386] )
 
 lambda =  matrix( [ 0.5, 1, 2, 4 ], [2,2] );
 /*
@@ -60,7 +60,7 @@ lambda =  matrix( [ 0.5, 1, 2, 4 ], [2,2] );
 
 out = entropy( lambda );
 /*
-	[ ~1.693 ~1.000,
+	[ ~1.693  1.000,
 	  ~0.307 ~-0.386 ]
 */
 ```
@@ -90,7 +90,7 @@ function getValue( d, i ) {
 var out = entropy( lambda, {
 	'accessor': getValue
 });
-// returns [ ~1.693, ~1.000, ~0.307, ~-0.386 ]
+// returns [ ~1.693, 1.000, ~0.307, ~-0.386 ]
 ```
 
 To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provide a key path and, optionally, a key path separator.
@@ -107,7 +107,7 @@ var out = entropy( lambda, 'x|1', '|' );
 /*
 	[
 		{'x':[9,~1.693]},
-		{'x':[9,~1.000]},
+		{'x':[9,1.000]},
 		{'x':[9,~0.307]},
 		{'x':[9,~-0.386]},
 	]
@@ -150,7 +150,7 @@ lambda = [ 0.5, 1, 2, 4 ];
 out = entropy( lambda, {
 	'copy': false
 });
-// returns [ ~1.693, ~1.000, ~0.307, ~-0.386 ]
+// returns [ ~1.693, 1.000, ~0.307, ~-0.386 ]
 
 bool = ( data === out );
 // returns true
@@ -165,7 +165,7 @@ out = entropy( mat, {
 	'copy': false
 });
 /*
-	[ ~1.693 ~1.000,
+	[ ~1.693 1.000,
 	  ~0.307 ~-0.386 ]
 */
 
